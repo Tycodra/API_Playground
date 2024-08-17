@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -24,13 +23,13 @@ public class UserControllerTest {
     public void getWelcome() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string(equalTo("Greetings from the API!")));
+                .andExpect(content().string("Greetings from the API!"));
     }
 
     @Test
     public void getUser1() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/users/1").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string(equalTo("{\"id\":\"1\",\"name\":\"John Johnson\",\"email\":\"johny@test.com\"}")));
+                .andExpect(content().string("{\"id\":\"1\",\"name\":\"John Johnson\",\"email\":\"johny@test.com\"}"));
     }
 }
