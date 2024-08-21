@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: brandon-wardell
+      logicalFilePath: db/changelog/createTable1.sql
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          tableExists:
+            tableName: my_table
+      changes:
+        - sqlFile:
+            path: db/changelog/createTable1.sql

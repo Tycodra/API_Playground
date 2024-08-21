@@ -14,7 +14,7 @@ public class UserService {
 
     // Retrieve all users
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return userRepository.getAllUsers();
     }
 
     // Retrieve a user by ID
@@ -35,16 +35,13 @@ public class UserService {
 
     // Update an existing user
     public User updateUser(String id, User userDetails) {
-        if (userRepository.existsById(id)) {
             userDetails.setId(id);
             return userRepository.save(userDetails);
-        }
-        return null;
     }
 
     // Delete a user
     public User deleteUser(String id) {
-        if (userRepository.existsById(id)) {
+        if (userRepository.findById(id).isPresent()) {
             Optional<User> delUser = userRepository.findById(id);
             userRepository.deleteById(id);
             return delUser.orElse(null);
