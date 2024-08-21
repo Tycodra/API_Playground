@@ -1,85 +1,50 @@
 package com.example.demo;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import javax.sql.DataSource;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
-public interface UserRepository extends MongoRepository<User, String> {
+public class UserRepository {
 
-    public User findByName(String name);
+    private final Logger logger = LoggerFactory.getLogger(UserRepository.class);
+    private final ObjectMapper objectMapper;
 
-    public User findByID(String id);
+    private final JdbcTemplate template;
+    private final NamedParameterJdbcTemplate namedTemplate;
 
-    public List<User> findAll();
+    @Autowired
+    public UserRepository(ObjectMapper objectMapper, DataSource dataSource) {
+        this.objectMapper = objectMapper;
+        this.template = new JdbcTemplate(dataSource);
+        this.namedTemplate = new NamedParameterJdbcTemplate(dataSource);
+    }
 
-//    public User updateByID(String id, User user);
+    public List<User> getAllUsers() {
+        return null;
+    }
 
-    public boolean deleteByID(String id);
+    public Optional<User> findById(String id) {
+        return null;
+    }
 
+    public User save(User userDetails) {
+        return null;
+    }
+
+    public User findByName(String name) {
+        return null;
+    }
+
+    public void deleteById(String id) {
+
+    }
 }
-//    private MongoCollection<Document> userCollection;
-//
-//    public UserRepository() {
-//        MongoDatabase database = MongoDBConnection.getDatabase();
-//        this.userCollection = database.getCollection("Users");
-//    }
-//
-//    public List<User> getAllUsers() {
-//        List<User> users = new ArrayList<>();
-//        for (Document doc : userCollection.find()) {
-//            User user = new User(
-//                    doc.getInteger("id"),
-//                    doc.getString("name"),
-//                    doc.getString("email")
-//            );
-//            users.add(user);
-//        }
-//        return users;
-//    }
-//
-//    public User getUserById(int id) {
-//        Document doc = userCollection.find(Filters.eq("id", id)).first();
-//        if (doc != null) {
-//            return new User(
-//                    doc.getInteger("id"),
-//                    doc.getString("name"),
-//                    doc.getString("email")
-//            );
-//        }
-//        return null;
-//    }
-//
-//    public boolean addUser(User user) {
-//        Document
-//        userCollection.insertOne(user);
-//    }
-//}
-//
-//
-//    public boolean add(User user) {
-//        users.add(user);
-//        return true;
-//    }
-//    public boolean deleteUser(Long id) {
-//        for (int i = 0; i < users.size(); i++) {
-//            User user = users.get(i);
-//            if (user.getID() == id) {
-//                users.remove(i);
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-//    public User updateUser(Long id, User updatedUser) {
-//        for (int i = 0; i < users.size(); i++) {
-//            User user = users.get(i);
-//            if (user.getID() == id) {
-//                users.set(i, updatedUser);
-//                return updatedUser;
-//            }
-//        }
-//        return null;
-//    }
-//
-//}

@@ -1,11 +1,7 @@
 package com.example.demo;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "Students")
 public class Student {
-    @Id
     private String id;
     private String firstName;
     private String lastName;

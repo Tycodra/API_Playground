@@ -16,27 +16,17 @@ public class StudentService {
     }
 
     public Student getStudentById(String id) {
-        if (studentRepository.existsById(id)) {
-            Optional<Student> student = studentRepository.findById(id);
+            Optional<Student> student = studentRepository.getById(id);
             return student.orElse(null);
-        }
-        return null;
     }
 
     public Student updateStudent(String id, Student studentDetails) {
-        if (studentRepository.existsById(id)) {
             return studentRepository.save(studentDetails);
-        }
-        return null;
     }
 
-    public Student deleteStudent(String id) {
-        if (studentRepository.existsById(id)) {
-            Optional<Student> delStudent = studentRepository.findById(id);
-            studentRepository.deleteById(id);
-            return delStudent.orElse(null);
-        }
-        return null;
+    public boolean deleteStudent(String id) {
+            Optional<Student> delStudent = studentRepository.getById(id);
+            return studentRepository.deleteById(delStudent.get().getId());
     }
 
     public Student addStudent(Student student) {
