@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,8 +11,14 @@ import java.util.Optional;
 @Service
 public class UserService {
 
+    private final Logger logger = LoggerFactory.getLogger(UserService.class);
+
+    private final UserRepository userRepository;
+
     @Autowired
-    private UserRepository userRepository;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     // Retrieve all users
     public List<User> getAllUsers() {
@@ -41,11 +49,17 @@ public class UserService {
 
     // Delete a user
     public User deleteUser(String id) {
-        if (userRepository.findById(id).isPresent()) {
-            Optional<User> delUser = userRepository.findById(id);
-            userRepository.deleteById(id);
-            return delUser.orElse(null);
+        try {
+            Optional<User> userOptional = userRepository.findById(id);
+            if (userOptional.isPresent()) {
+                userRepository.deleteById(id);
+                return userOptional.get();
+            }
+        } catch (Exception e) {
+            logger.warn("Failed to delete user with ID {}", id);
+            throw new RuntimeException("Failed to delete User with ID " + id);
         }
+
         return null;
     }
 }
