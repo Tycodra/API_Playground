@@ -11,3 +11,29 @@ databaseChangeLog:
       changes:
         - sqlFile:
             path: db/changelog/createTable1.sql
+
+  - changeSet:
+      id: 2
+      author: cole-draper
+      logicalFilePath: db/changelog/students.sql
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          tableExists:
+            tableName: students
+      changes:
+        - sqlFile:
+            path: db/changelog/students.sql
+
+  - changeSet:
+      id: 3
+      author: cole-draper
+      logicalFilePath: db/changelog/users.sql
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          tableExists:
+            tableName: users
+      changes:
+        - sqlFile:
+            path: db/changelog/users.sql
