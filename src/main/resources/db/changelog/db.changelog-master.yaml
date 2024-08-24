@@ -37,3 +37,14 @@ databaseChangeLog:
       changes:
         - sqlFile:
             path: db/changelog/users.sql
+  - changeSet:
+      id: 4
+      author: brandon-wardell
+      logicalFilePath: db/changelog/deleteTable1.sql
+      preConditions:
+        onFail: MARK_RAN
+        tableExists:
+          tableName: my_table
+      changes:
+        - sqlFile:
+            path: db/changelog/deleteTable1.sql
