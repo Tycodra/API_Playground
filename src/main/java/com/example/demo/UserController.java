@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(produces = "application/json")
 public class UserController {
+
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
     UserController(UserService userService) {
         this.userService = userService;
     }
@@ -17,10 +19,12 @@ public class UserController {
     public String index() {
         return "Greetings from the API!";
     }
+
     @GetMapping(value = "/users")
-    public List<User> getUsers() {
-        return this.userService.getAllUsers();
+    public ResponseEntity<List<User>> getUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
     }
+
     @GetMapping(value = "/users/{id}")
     public ResponseEntity getUser(@PathVariable String id) {
         User retUser = this.userService.getUserById(id);
