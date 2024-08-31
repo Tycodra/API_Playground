@@ -26,6 +26,8 @@ dependencies {
     implementation("com.mysql:mysql-connector-j:9.0.0")
     implementation("org.yaml:snakeyaml:2.2")
 
+    // https://mvnrepository.com/artifact/org.mockito/mockito-core
+    testImplementation("org.mockito:mockito-core:5.12.0")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.junit.platform:junit-platform-launcher")
 }
