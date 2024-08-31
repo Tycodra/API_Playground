@@ -5,6 +5,9 @@ import com.example.demo.models.User;
 import com.example.demo.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.example.demo.EmailAlreadyExistsException;
+import com.example.demo.models.User;
+import com.example.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -70,7 +73,6 @@ public class UserService {
             logger.warn("Failed to delete user with ID {}", id);
             throw new RuntimeException("Failed to delete User with ID " + id);
         }
-
         return null;
     }
 }
