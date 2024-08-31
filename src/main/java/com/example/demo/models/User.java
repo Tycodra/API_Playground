@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -10,8 +10,8 @@ import java.util.Objects;
 public class User {
 
     private String id;
-    private String firstName;
-    private String lastName;
+    private String first_name;
+    private String last_name;
     private String email;
 
     public User() {
@@ -25,20 +25,20 @@ public class User {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLast_name() {
+        return last_name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
     }
 
     public String getEmail() {
@@ -50,18 +50,24 @@ public class User {
     }
 
     @Override
+    public final String toString() {
+        return String.format("User [id=%s, first_name=%s, last_name=%s, email=%s]",
+                id, first_name, last_name, email);
+    }
+
+    @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User user)) return false;
 
-        return id.equals(user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email);
+        return id.equals(user.id) && Objects.equals(first_name, user.first_name) && Objects.equals(last_name, user.last_name) && Objects.equals(email, user.email);
     }
 
     @Override
     public int hashCode() {
         int result = id.hashCode();
-        result = 31 * result + Objects.hashCode(firstName);
-        result = 31 * result + Objects.hashCode(lastName);
+        result = 31 * result + Objects.hashCode(first_name);
+        result = 31 * result + Objects.hashCode(last_name);
         result = 31 * result + Objects.hashCode(email);
         return result;
     }
@@ -78,8 +84,8 @@ public class User {
 
         public UserBuilder(User other) {
             this.id = other.id;
-            this.firstName = other.firstName;
-            this.lastName = other.lastName;
+            this.firstName = other.first_name;
+            this.lastName = other.last_name;
             this.email = other.email;
         }
 
@@ -110,8 +116,8 @@ public class User {
         public User build() {
             User user = new User();
             user.setId(id);
-            user.setFirstName(firstName);
-            user.setLastName(lastName);
+            user.setFirst_name(firstName);
+            user.setLast_name(lastName);
             user.setEmail(email);
             return user;
         }

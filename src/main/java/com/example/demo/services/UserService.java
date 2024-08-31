@@ -1,5 +1,8 @@
-package com.example.demo;
+package com.example.demo.services;
 
+import com.example.demo.EmailAlreadyExistsException;
+import com.example.demo.models.User;
+import com.example.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,19 +27,27 @@ public class UserService {
     }
 
     // Retrieve a user by name
-    public User getUserByName(String name) {
+    public List<User> getUserByName(String name) {
+        // There is a chance multiple users have the same name
         return userRepository.findByName(name);
     }
 
     // Add a new user
     public User addUser(User user) {
-        return userRepository.save(user);
+        // Check if email already in use
+        if (userRepository.emailExists(user.getEmail())) {
+            throw new EmailAlreadyExistsException("Email " + user.getEmail() + " is already in use.");
+        }
+
+        Optional<User> newUser = userRepository.insertUser(user);
+        return newUser.orElse(null);
     }
 
     // Update an existing user
     public User updateUser(String id, User userDetails) {
             userDetails.setId(id);
-            return userRepository.save(userDetails);
+            Optional<User> updatedUser = userRepository.updateUser(userDetails);
+            return updatedUser.orElse(null);
     }
 
     // Delete a user
