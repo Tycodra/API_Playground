@@ -23,7 +23,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-jdbc:3.3.2")
     implementation("org.liquibase:liquibase-core:4.26.0")
-    implementation("com.mysql:mysql-connector-j:9.0.0")
+    // https://mvnrepository.com/artifact/org.postgresql/postgresql
+    implementation("org.postgresql:postgresql:42.7.4")
     implementation("org.yaml:snakeyaml:2.2")
 
     // https://mvnrepository.com/artifact/org.mockito/mockito-core
